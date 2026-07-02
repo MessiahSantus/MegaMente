@@ -1,0 +1,133 @@
+.backlinks {
+  border-top: 1px solid var(--border);
+  padding: var(--space-3) var(--space-5);
+  background: var(--bg-surface);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+}
+.backlinks h3 {
+  margin: 0 0 var(--space-2);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+.backlinks ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.backlinks li {
+  padding: 6px 8px;
+  border-radius: var(--radius-1);
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease);
+}
+.backlinks li:hover {
+  background: var(--bg-hover);
+}
+.backlinks .from {
+  font-weight: 500;
+  color: var(--text-1);
+}
+.backlinks .ctx {
+  color: var(--text-3);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* V54: Related list — shares the backlinks visual language. */
+.related-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.related-item {
+  padding: 6px 8px;
+  border-radius: var(--radius-1);
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease);
+}
+.related-item:hover {
+  background: var(--bg-hover);
+}
+.related-item .from {
+  font-weight: 500;
+  color: var(--text-1);
+}
+.related-item .ctx {
+  color: var(--text-3);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* T137: tag-suggest toast body — small chip buttons. */
+.tag-suggest {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 4px;
+}
+.tag-suggest-btn {
+  background: var(--bg-hover);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-1);
+  padding: 2px 8px;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-1);
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease);
+}
+.tag-suggest-btn:hover {
+  background: var(--bg-active);
+}
+
+/* .cmd-bar + .modal-backdrop removed in T88 — CommandBar uses Radix Dialog */
+
+.outline {
+  padding: var(--space-3) var(--space-4);
+  border-top: 1px solid var(--border);
+  font-size: var(--text-sm);
+}
+.outline h3 {
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin: 0 0 var(--space-2);
+  color: var(--text-3);
+}
+.outline a {
+  display: block;
+  padding: 4px 0;
+  color: var(--text-2);
+  border-radius: var(--radius-1);
+}
+.outline a:hover {
+  color: var(--accent);
+  text-decoration: none;
+}
+/* B13: do NOT name these classes `h-N` — collides with Tailwind's
+   height utilities (h-1 = 4px, h-2 = 8px, …) and crushed outline rows
+   to overlap on top of each other. */
+.outline .lvl-1 { padding-left: 0; font-weight: 500; }
+.outline .lvl-2 { padding-left: 12px; }
+.outline .lvl-3 { padding-left: 24px; }
+.outline .lvl-4 { padding-left: 36px; color: var(--text-3); }
+.outline .lvl-5 { padding-left: 48px; color: var(--text-3); }
+.outline .lvl-6 { padding-left: 60px; color: var(--text-3); }
+
+/* .settings-panel + .toast removed in T88 — Settings uses Radix Dialog, toasts use Radix Toast */

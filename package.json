@@ -1,0 +1,16 @@
+{
+  "name": "megamente",
+  "version": "1.0.0",
+  "private": true,
+  "description": "MegaMente - Um ecossistema unificado para agentes de IA",
+  "workspaces": [
+    "gbrain",
+    "gbrain/admin",
+    "mi4uu-brain",
+    "mi4uu-brain/server",
+    "mi4uu-brain/web"
+  ],
+  "scripts": {
+    "install:all": "npm install && pwsh ./install.ps1"
+  }
+}

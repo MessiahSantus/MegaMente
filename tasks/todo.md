@@ -1,0 +1,10 @@
+- [x] 1. Remover arquivo temporário `MegaMente.md`.
+- [x] 2. Clonar repositórios em subpastas.
+- [x] 3. Buscar e baixar instalador do Hermes.
+- [x] 4. Instalar Hermes (Executado via Desktop).
+- [x] 5. Transformar MegaMente em um único projeto Git (Remover .git das subpastas).
+- [x] 6. Criar README.md principal para o monorepo MegaMente.
+- [x] 7. Iniciar Git na raiz e fazer o commit inicial de todos os projetos.
+- [x] 8. Atualizar README.md (Português, Inglês, Chinês) com aviso de créditos.
+- [x] 9. Extrair `amnesia-no-more.zip` para o repositório MegaMente.
+- [ ] 10. Commit das novas alterações e push para o GitHub.

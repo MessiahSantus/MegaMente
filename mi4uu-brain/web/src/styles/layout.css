@@ -1,0 +1,434 @@
+.shell {
+  display: grid;
+  height: 100dvh;
+  width: 100vw;
+  grid-template-columns: 260px 1fr;
+  grid-template-rows: 48px 1fr;
+  grid-template-areas:
+    "topbar topbar"
+    "sidebar main";
+  background: var(--bg-app);
+}
+
+.topbar {
+  grid-area: topbar;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0 var(--space-3);
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-surface);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.topbar-center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: auto;
+  z-index: 1;
+}
+@media (max-width: 720px) {
+  .topbar-center { display: none; }
+}
+/* V62: on narrow viewports the topbar action row overflows past the
+   right edge — allow horizontal scroll for the actions, but keep the
+   left identity zone (hamburger + brand) pinned via `position: sticky`
+   so the user never loses orientation. Sticky children need a solid
+   background so scrolled-under content doesn't bleed through. */
+@media (max-width: 840px) {
+  .topbar {
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+  }
+  .topbar::-webkit-scrollbar { display: none; }
+  .topbar > * { flex-shrink: 0; }
+  .topbar .menu-btn {
+    position: sticky;
+    left: 0;
+    z-index: 2;
+    background: var(--bg-surface);
+  }
+  .topbar .brand {
+    position: sticky;
+    left: 44px; /* approx menu-btn width incl. padding */
+    z-index: 2;
+    background: var(--bg-surface);
+    /* slight right-padding so scrolled content has visual separation */
+    padding-right: var(--space-2);
+  }
+}
+
+.topbar .brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  margin-left: 4px;
+  border-radius: var(--radius-1);
+  flex-shrink: 0;
+  color: var(--text-1);
+  text-decoration: none;
+  transition: background var(--dur-fast) var(--ease);
+}
+.topbar .brand:hover {
+  background: var(--bg-hover);
+}
+.topbar .brand img {
+  display: block;
+  width: 22px;
+  height: 22px;
+}
+.topbar .brand-name {
+  font-weight: 600;
+  font-size: var(--text-sm);
+  letter-spacing: -0.01em;
+}
+@media (max-width: 540px) {
+  .topbar .brand-name {
+    display: none;
+  }
+}
+
+/* Sponsor heart: subtle muted pink at rest, full pink on hover */
+.topbar .sponsor-btn {
+  color: var(--text-3);
+  opacity: 0.75;
+  transition: color var(--dur-fast) var(--ease), opacity var(--dur-fast) var(--ease);
+}
+.topbar .sponsor-btn:hover {
+  color: #ec4899; /* pink-500 */
+  opacity: 1;
+}
+
+.topbar .title {
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text-1);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-right: auto;
+  padding: 0 var(--space-2);
+  min-width: 0;
+  flex: 1;
+}
+
+.topbar .crumb {
+  color: var(--text-3);
+  font-size: var(--text-sm);
+}
+
+.topbar .saved {
+  font-size: var(--text-xs);
+  color: var(--text-3);
+  margin-right: var(--space-2);
+}
+
+.sidebar {
+  grid-area: sidebar;
+  background: var(--bg-surface);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.sidebar header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2);
+  border-bottom: 1px solid var(--border);
+}
+
+/* Legacy .tree-wrap / .side-section removed in T89 — replaced by .sidebar-scroll + Accordion */
+
+.sidebar .sidebar-scroll {
+  flex: 1 1 0;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.sidebar .sidebar-accordion {
+  display: flex;
+  flex-direction: column;
+}
+.sidebar .sidebar-item {
+  border-bottom: 1px solid var(--border);
+}
+.sidebar .sidebar-trigger {
+  padding: 6px 10px;
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  background: var(--bg-surface-2);
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+}
+.sidebar .sidebar-trigger:hover {
+  color: var(--text-1);
+  background: var(--bg-active);
+}
+.sidebar .sidebar-trigger[data-state="open"] {
+  color: var(--text-2);
+}
+.sidebar .sidebar-trigger > svg {
+  width: 12px;
+  height: 12px;
+  color: var(--text-4);
+}
+.sidebar .sidebar-body {
+  padding: 4px 0;
+}
+.sidebar .sidebar-empty {
+  margin: 0;
+  padding: 8px 12px;
+  font-size: var(--text-xs);
+  color: var(--text-4);
+}
+.sidebar .sidebar-body .outline,
+.sidebar .sidebar-body .backlinks {
+  border-top: none;
+  padding: 4px 10px;
+  background: transparent;
+}
+.sidebar .sidebar-body .outline h3,
+.sidebar .sidebar-body .backlinks h3 {
+  display: none;
+}
+
+.sidebar .sidebar-tags {
+  list-style: none;
+  padding: 4px 6px 6px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+.sidebar .sidebar-tag {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 8px;
+  border-radius: var(--radius-1);
+  color: var(--text-2);
+  text-decoration: none;
+  font-size: var(--text-sm);
+  transition: background var(--dur-fast) var(--ease);
+}
+.sidebar .sidebar-tag:hover {
+  background: var(--bg-hover);
+  color: var(--text-1);
+}
+.sidebar .sidebar-tag.active {
+  background: var(--bg-selected);
+  color: var(--accent-strong);
+}
+.sidebar .sidebar-tag-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.sidebar .sidebar-tag-count {
+  font-size: var(--text-xs);
+  color: var(--text-3);
+  font-variant-numeric: tabular-nums;
+}
+.sidebar .sidebar-subhead {
+  padding: 8px 12px 4px;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-4);
+  font-weight: 600;
+}
+
+.sync-connector {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 4;
+}
+.sync-connector path {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1.25;
+  opacity: 0.7;
+}
+.sync-connector circle {
+  fill: var(--accent);
+  opacity: 0.85;
+}
+
+.main {
+  grid-area: main;
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    "ehead phead"
+    "editor preview";
+  gap: 0;
+  background: var(--bg-app);
+  min-width: 0;
+  overflow: hidden;
+}
+
+.main.has-toolbar {
+  grid-template-rows: auto auto 1fr;
+  grid-template-areas:
+    "ehead phead"
+    "tools tools"
+    "editor preview";
+}
+
+.main .pane-head.editor-head { grid-area: ehead; border-right: 1px solid var(--border); }
+.main .pane-head.preview-head { grid-area: phead; }
+.main .toolbar-row { grid-area: tools; border-bottom: 1px solid var(--border); }
+.main .editor-pane { grid-area: editor; border-right: 1px solid var(--border); }
+.main .preview-pane { grid-area: preview; }
+
+.pane {
+  background: var(--bg-app);
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.pane.editor-pane .editor-host {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.pane.preview-pane {
+  background: var(--bg-app);
+}
+
+.pane-head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  height: 36px;
+  padding: 0 var(--space-3);
+  font-size: var(--text-xs);
+  color: var(--text-3);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-surface);
+}
+
+.drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: var(--z-drawer);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--dur-base) var(--ease);
+}
+.drawer-backdrop.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.mobile-tabs {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 52px;
+  background: var(--bg-surface);
+  border-top: 1px solid var(--border);
+  z-index: 5;
+  padding: 0 8px;
+  align-items: stretch;
+}
+/* mobile-tabs inner controls are now Radix Tabs (see ui/tabs.tsx) */
+
+@media (max-width: 840px) {
+  .shell {
+    /* V62: same minmax(0, 1fr) fix as .main — keep grid from growing
+       past viewport when an inner element has wide min-content. */
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "topbar"
+      "main";
+  }
+  .sidebar {
+    position: fixed;
+    inset: 48px 0 0 0;
+    width: min(86vw, 320px);
+    z-index: calc(var(--z-drawer) + 1);
+    transform: translateX(-100%);
+    transition: transform var(--dur-base) var(--ease);
+    box-shadow: var(--shadow-2);
+  }
+  .sidebar.open {
+    transform: translateX(0);
+  }
+  .main {
+    /* V62 mobile fix — round 3. `1fr` resolves to `minmax(auto, 1fr)` by
+       default, and `auto` = max-content. CM6's cm-content reports a wide
+       min-content (longest line), which forces the column to grow past
+       viewport. `minmax(0, 1fr)` lets the column actually shrink. */
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "ehead"
+      "editor";
+    padding-bottom: 52px;
+  }
+  .main.has-toolbar {
+    grid-template-areas:
+      "ehead"
+      "tools"
+      "editor";
+  }
+  .main .pane-head.editor-head { border-right: none; }
+  .main .editor-pane { border-right: none; }
+  .main.show-preview .pane.editor-pane,
+  .main.show-preview .pane-head.editor-head {
+    display: none;
+  }
+  .main.show-preview {
+    grid-template-areas:
+      "phead"
+      "preview";
+  }
+  .main.show-preview.has-toolbar {
+    grid-template-areas:
+      "phead"
+      "tools"
+      "preview";
+  }
+  .main:not(.show-preview) .pane.preview-pane,
+  .main:not(.show-preview) .pane-head.preview-head {
+    display: none;
+  }
+  .mobile-tabs {
+    display: flex;
+  }
+}
+
+@media (min-width: 841px) {
+  .menu-btn {
+    display: none;
+  }
+  .drawer-backdrop {
+    display: none;
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "name": "@brain/server",
+  "private": true,
+  "version": "0.4.9",
+  "license": "AGPL-3.0-or-later",
+  "description": "brain.md backend — Elysia + Bun. Vault FS, search index, git autocommit, RAG pipeline (LanceDB), MCP server, optional auth.",
+  "author": {
+    "name": "Michał Lipiński",
+    "url": "https://lipinski.work/"
+  },
+  "homepage": "https://github.com/mi4uu/brain.md#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mi4uu/brain.md.git",
+    "directory": "server"
+  },
+  "bugs": {
+    "url": "https://github.com/mi4uu/brain.md/issues"
+  },
+  "type": "module",
+  "scripts": {
+    "dev": "bun run --watch src/index.ts",
+    "start": "bun run src/index.ts",
+    "test": "bun test",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@elysiajs/cors": "^1.1.1",
+    "@lancedb/lancedb": "^0.20.0",
+    "@modelcontextprotocol/sdk": "^1.0.4",
+    "apache-arrow": "^18.1.0",
+    "elysia": "^1.1.25",
+    "gpt-tokenizer": "^2.8.1",
+    "onnxruntime-web": "^1.26.0",
+    "yaml": "^2.6.0",
+    "zod": "^3.25.0"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "typescript": "^5.6.3"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "instructions": [
+    "AGENTS.md",
+    ".opencode/memory/.memory-manifest.md",
+    ".opencode/.session_context.md"
+  ]
+}

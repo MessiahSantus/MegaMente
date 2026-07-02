@@ -1,0 +1,57 @@
+/* HistoryPanel shell migrated to Radix Dialog + ScrollArea (T80, T88).
+ * Only .diff* (used by DiffView) and .history-status-bar (GitStatusChip)
+ * remain here. */
+
+.diff {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  line-height: 1.55;
+  padding: 4px 0;
+  margin: 0;
+  background: var(--bg-app);
+}
+.diff > div {
+  padding: 0 16px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.diff .diff-add {
+  background: rgba(16, 185, 129, 0.12);
+  color: var(--callout-tip);
+}
+.diff .diff-rm {
+  background: rgba(239, 68, 68, 0.12);
+  color: var(--callout-danger);
+}
+.diff .diff-hunk {
+  color: var(--accent);
+  background: var(--bg-surface);
+}
+.diff .diff-meta {
+  color: var(--text-3);
+  background: var(--bg-surface);
+}
+.diff .diff-ctx {
+  color: var(--text-2);
+}
+
+.history-status-bar {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--text-xs);
+  color: var(--text-3);
+  padding: 0 8px;
+}
+.history-status-bar .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--text-4);
+}
+.history-status-bar.dirty .dot { background: var(--callout-warn); }
+.history-status-bar.clean .dot { background: var(--callout-tip); }
+.history-status-bar.off .dot   { background: var(--text-4); }

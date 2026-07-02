@@ -1,0 +1,10 @@
+# MindMux client runtime artifacts (task logs, etc.) — not part of the product
+.mindmux/
+
+# macOS
+.DS_Store
+
+# Local brain.md wiring for working ON this repo. The canonical contract + skeleton
+# ship in skills/brain-setup/assets/; these root copies are local-only, not product.
+/BRAIN.md
+/CLAUDE.md
