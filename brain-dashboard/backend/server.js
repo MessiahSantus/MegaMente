@@ -112,7 +112,7 @@ app.post('/api/neurons', (req, res) => {
     const db = new DatabaseSync(dbPath);
     
     // Check if domain hub exists
-    const hub = db.prepare('SELECT id FROM memories WHERE domain = ? AND type = "hub"').get(domain);
+    const hub = db.prepare("SELECT id FROM memories WHERE domain = ? AND type = 'hub'").get(domain);
     
     let newNodes = [];
     
