@@ -8,9 +8,18 @@
     "gbrain/admin",
     "mi4uu-brain",
     "mi4uu-brain/server",
-    "mi4uu-brain/web"
+    "mi4uu-brain/web",
+    "brain-dashboard/backend",
+    "brain-dashboard/frontend"
   ],
   "scripts": {
-    "install:all": "npm install && pwsh ./install.ps1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "install:all": "cd amnesia-no-more && npm install && cd ../gbrain && npm install && cd ../mi4uu-brain && npm install && cd ../mindmuxai-brain && npm install && cd ../brain-dashboard/backend && npm install && cd ../frontend && npm install",
+    "start:backend": "cd brain-dashboard/backend && node server.js",
+    "start:frontend": "cd brain-dashboard/frontend && npm run dev",
+    "dashboard": "concurrently \"npm run start:backend\" \"npm run start:frontend\""
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.3"
   }
 }
