@@ -405,7 +405,12 @@ function App() {
     if (graphRef.current && graphData.nodes.length > 0) {
       graphRef.current.graphData(graphData);
       if (dataHashRef.current !== '') {
-        graphRef.current.cameraPosition({ z: 800 });
+        const nodeCount = graphData.nodes.length;
+        let initialZ = 800;
+        if (nodeCount < 20) initialZ = 200;
+        else if (nodeCount < 100) initialZ = 400;
+        else if (nodeCount < 300) initialZ = 600;
+        graphRef.current.cameraPosition({ z: initialZ });
       }
     }
   }, [graphData]);
@@ -691,8 +696,14 @@ function App() {
               </div>
             </div>
 
-            <div className="node-content" style={{ marginBottom: '24px' }}>
-              {selectedNode.content}
+            <div className="node-content" style={{ marginBottom: '24px', opacity: selectedNode.content ? 1 : 0.7, fontStyle: selectedNode.content ? 'normal' : 'italic' }}>
+              {selectedNode.content ? (
+                selectedNode.content
+              ) : (
+                selectedNode.type === 'hub' 
+                  ? `Este é o Núcleo Principal (Hub) do domínio "${selectedNode.domain}". Ele atua como o centro de gravidade para todas as memórias e aprendizados relacionados a este tópico.`
+                  : "Nenhum conteúdo disponível para esta memória."
+              )}
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
