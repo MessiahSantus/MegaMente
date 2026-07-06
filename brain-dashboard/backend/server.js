@@ -116,16 +116,19 @@ app.post('/api/neurons', (req, res) => {
     
     let newNodes = [];
     
+    const crypto = require('crypto');
+    
     if (!hub) {
       // Create new hub for this domain
+      const hubId = `hub_${crypto.randomUUID().replace(/-/g, '').substring(0, 12)}`;
       const insertHub = db.prepare(`
-        INSERT INTO memories (domain, type, tier, relevance, access_count, content, tags) 
-        VALUES (?, 'hub', 'L1', 1.0, 50, ?, '[]')
+        INSERT INTO memories (id, domain, type, tier, relevance, access_count, content, tags) 
+        VALUES (?, ?, 'hub', 'L1', 1.0, 50, ?, '[]')
       `);
-      const resultHub = insertHub.run(domain, `Núcleo de ${domain}`);
+      const resultHub = insertHub.run(hubId, domain, `Núcleo de ${domain}`);
       
       newNodes.push({
-        id: resultHub.lastInsertRowid,
+        id: hubId,
         domain: domain,
         type: 'hub',
         tier: 'L1',
@@ -146,15 +149,16 @@ app.post('/api/neurons', (req, res) => {
     }
     
     // Create the actual memory (leaf)
+    const leafId = `leaf_${crypto.randomUUID().replace(/-/g, '').substring(0, 12)}`;
     const insertLeaf = db.prepare(`
-      INSERT INTO memories (domain, type, tier, relevance, access_count, content, tags) 
-      VALUES (?, 'leaf', 'L3', 0.9, 1, ?, ?)
+      INSERT INTO memories (id, domain, type, tier, relevance, access_count, content, tags) 
+      VALUES (?, ?, 'leaf', 'L3', 0.9, 1, ?, ?)
     `);
     
-    const resultLeaf = insertLeaf.run(domain, content, tagsStr);
+    const resultLeaf = insertLeaf.run(leafId, domain, content, tagsStr);
     
     newNodes.push({
-      id: resultLeaf.lastInsertRowid,
+      id: leafId,
       domain: domain,
       type: 'leaf',
       tier: 'L3',
